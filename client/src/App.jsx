@@ -36,8 +36,8 @@ const App = () => {
             <Route path="myposts/:id" element={<Dashboard />} />{" "}
             <Route path="posts/:id/edit" element={<EditPost />} />
             <Route path="logout" element={<Logout />} />
-            <Route path="*" element={<ErrorPage />} />
           </Route>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>
