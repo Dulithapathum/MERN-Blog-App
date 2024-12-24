@@ -1,5 +1,7 @@
 import React from "react";
 
-export const CategoryPosts = () => {
+const CategoryPosts = () => {
   return <div>CategoryPosts</div>;
 };
+
+export default CategoryPosts;

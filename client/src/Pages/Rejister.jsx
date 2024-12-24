@@ -1,5 +1,7 @@
 import React from "react";
 
-export const Rejister = () => {
+const Rejister = () => {
   return <div>Rejister</div>;
 };
+
+export default Rejister;

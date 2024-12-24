@@ -1,5 +1,7 @@
 import React from "react";
 
-export const DeletePost = () => {
+const DeletePost = () => {
   return <div>DeletePost</div>;
 };
+
+export default DeletePost;
