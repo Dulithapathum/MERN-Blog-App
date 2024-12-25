@@ -14,6 +14,7 @@ import AuthorPosts from "./Pages/AuthorPosts";
 import Dashboard from "./Pages/Dashboard";
 import EditPost from "./Pages/EditPost";
 import Logout from "./Pages/Logout";
+import DeletePost from "./Pages/DeletePost";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="posts/users/:id" element={<AuthorPosts />} />
             <Route path="myposts/:id" element={<Dashboard />} />{" "}
             <Route path="posts/:id/edit" element={<EditPost />} />
+            <Route path="posts/:id/delete" element={<DeletePost />} />
             <Route path="logout" element={<Logout />} />
           </Route>
           <Route path="*" element={<ErrorPage />} />
