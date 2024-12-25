@@ -11,13 +11,13 @@ const PostDetail = () => {
             <PostAuthor />
             <div>
               <Link
-                className="bg-slate-200 m-1 px-3 py-1 rounded-md bg-blue-700 text-white"
+                className=" m-1 px-3 py-1 rounded-md bg-blue-700 text-white"
                 to={`/posts/werwer/edit`}
               >
                 Edit
               </Link>
               <Link
-                className="bg-slate-200 m-1 px-3 py-1 rounded-md bg-red-700 text-white"
+                className=" m-1 px-3 py-1 rounded-md bg-red-700 text-white"
                 to={`/posts/werwer/delete`}
               >
                 Delete

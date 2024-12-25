@@ -7,14 +7,14 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className=" sticky top-0  flex items-center bg-slate-100 justify-center  shadow-md ">
+    <nav className=" sticky top-0 z-50  flex items-center bg-slate-100 justify-center  shadow-md ">
       <div className="flex justify-between items-center w-full max-w-[1200px] px-5 ">
         <Link to="/">
           <img src={logo} alt="logo" className="w-20" />
         </Link>
         <ul className="hidden md:flex gap-8 font-semibold capitalize">
           <li>
-            <Link to="profile">Dulitha Pathum</Link>
+            <Link to="profile/dfbfb">Dulitha Pathum</Link>
           </li>
           <li>
             <Link to="create">Create Post</Link>
