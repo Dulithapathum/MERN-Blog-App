@@ -10,6 +10,7 @@ import Thumbnail7 from "../assetes/blog7.jpg";
 import Thumbnail8 from "../assetes/blog8.jpg";
 import Thumbnail9 from "../assetes/blog9.jpg";
 import Thumbnail10 from "../assetes/blog10.jpg";
+import PostsItem from "./PostsItem";
 
 const DUMMY_POSTS = [
   {
@@ -96,7 +97,13 @@ const DUMMY_POSTS = [
 
 const Posts = () => {
   const [posts, setPosts] = useState(DUMMY_POSTS);
-  return <div></div>;
+  return (
+    <div>
+      {posts.map((post) => (
+        <PostsItem key={post.id} post={post} />
+      ))}
+    </div>
+  );
 };
 
 export default Posts;
