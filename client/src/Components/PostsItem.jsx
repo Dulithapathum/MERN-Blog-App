@@ -2,8 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PostAuthor from "./PostAuthor";
 const PostsItem = ({ post }) => {
+  const truncateText = (text, limit) => {
+    const words = text.split(" ");
+    return words.length > limit
+      ? words.slice(0, limit).join(" ") + "..."
+      : text;
+  };
+
   return (
-    <article className="my-3 bg-slate-200 p-4 rounded-lg flex  flex-col justify-between hover:shadow-lg transition-shadow">
+    <article className="my-3 bg-slate-200 p-4 rounded-lg flex  flex-col justify-start hover:shadow-lg transition-shadow">
       <div className="">
         <img
           className="w-full h-56 bg-cover rounded-lg"
@@ -15,7 +22,7 @@ const PostsItem = ({ post }) => {
         <Link to={`/posts/${post.id}`}>
           <h3 className="font-bold text-xl capitalize">{post.title}</h3>
         </Link>
-        <p className="my-2 text-gray-700">{post.disc}</p>
+        <p className="my-2 text-gray-700"> {truncateText(post.disc, 20)}</p>
         <div className="flex  justify-between items-center">
           <PostAuthor />
           <Link
