@@ -8,6 +8,11 @@ import Thumbnail7 from "./blog7.jpg";
 import Thumbnail8 from "./blog8.jpg";
 import Thumbnail9 from "./blog9.jpg";
 import Thumbnail10 from "./blog10.jpg";
+import Avatar1 from "./avatar1.jpg";
+import Avatar2 from "./avatar2.jpg";
+import Avatar3 from "./avatar3.jpg";
+import Avatar4 from "./avatar4.jpg";
+import Avatar5 from "./avatar5.jpg";
 
 export const DUMMY_POSTS = [
   {
@@ -90,4 +95,12 @@ export const DUMMY_POSTS = [
     disc: "Sports teach us teamwork, discipline, and perseverance. Celebrate the spirit of sportsmanship through this post.",
     authorID: 10,
   },
+];
+
+export const authorsData = [
+  { id: 1, avatar: Avatar1, name: "Dulitha Pathum", posts: 5 },
+  { id: 2, avatar: Avatar2, name: "Chathura Wijesinghe", posts: 10 },
+  { id: 3, avatar: Avatar3, name: "Amaya Wickramasinghe", posts: 7 },
+  { id: 4, avatar: Avatar4, name: "Nimasha Herath", posts: 3 },
+  { id: 5, avatar: Avatar5, name: "Senuri Jayasinghe", posts: 8 },
 ];
