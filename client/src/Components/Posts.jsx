@@ -98,7 +98,7 @@ const DUMMY_POSTS = [
 const Posts = () => {
   const [posts, setPosts] = useState(DUMMY_POSTS);
   return (
-    <div>
+    <div className=" max-w-[1200px] mx-6  lg:mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {posts.map((post) => (
         <PostsItem key={post.id} post={post} />
       ))}
