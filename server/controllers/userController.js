@@ -10,7 +10,9 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 dotenv.config();
+
 // ===================Register User===================
 // POST:api/users/register
 // UNPROTECTED
@@ -152,7 +154,47 @@ export const changeAvatar = async (req, res, next) => {
 // POST:api/users/edit-user
 // PROTECTED
 export const editUser = async (req, res, next) => {
-  res.json("Edit User Detail");
+  try {
+    const { name, email, currentPassword, newPassword, confirmNewPassword } =
+      req.body;
+    if (!name || !email || !currentPassword || !newPassword) {
+      return next(new HttpError("Fill In All Fields", 422));
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return next(new HttpError("User not found", 403));
+    }
+
+    const emailExist = await User.findOne({ email });
+    if (emailExist && emailExist._id != req.user.id) {
+      return next(new HttpError("Email already exists", 422));
+    }
+
+    const validateUserPassword = await bcryptjs.compare(
+      currentPassword,
+      user.password
+    );
+    if (!validateUserPassword) {
+      return next(new HttpError("Current password is incorrect", 422));
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      return next(new HttpError("New passwords do not match", 422));
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    const hash = await bcryptjs.hash(newPassword, salt);
+
+    user.name = name;
+    user.email = email;
+    user.password = hash;
+    await user.save();
+
+    res.status(200).json({ message: "User details updated successfully" });
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
 
 // ===================Get Authors===================
