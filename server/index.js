@@ -6,6 +6,11 @@ import userRoutes from "./Routes/userRoutes.js";
 import postRoutes from "./Routes/postRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import upload from "express-fileupload";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 
 connectDB(); // Database connection
@@ -17,13 +22,13 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
-
 // File Upload  Middleware
 app.use(upload());
 app.use("/upload", express.static(__dirname + "/uploads"));
+
+// Routes
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
 
 // Error Handle Middleware
 app.use(notFound);

@@ -3,6 +3,13 @@ import bcryptjs from "bcryptjs";
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
+import { v4 as uuid } from "uuid";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 // ===================Register User===================
 // POST:api/users/register
@@ -91,7 +98,54 @@ export const getUser = async (req, res, next) => {
 // POST:api/users/change-avatar
 // PROTECTED
 export const changeAvatar = async (req, res, next) => {
-  res.json("Change User Avatar");
+  try {
+    if (!req.files || !req.files.avatar) {
+      return next(new HttpError("Please choose an image", 422));
+    }
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return next(new HttpError("User Not Found", 404));
+    }
+
+    if (user.avatar) {
+      fs.unlink(path.join(__dirname, "..", "upload", user.avatar), (error) => {
+        if (error) {
+          return next(new HttpError(error));
+        }
+      });
+    }
+
+    const { avatar } = req.files;
+    if (avatar.size > 500000) {
+      return next(
+        new HttpError("Profile Picture too big. Should be less than 500KB", 422)
+      );
+    }
+
+    let filename = avatar.name;
+    let splittedFilename = filename.split(".");
+    let newFilename =
+      splittedFilename[0] +
+      uuid() +
+      "." +
+      splittedFilename[splittedFilename.length - 1];
+
+    avatar.mv(
+      path.join(__dirname, "..", "upload", newFilename),
+      async (err) => {
+        if (err) {
+          return next(new HttpError("Avatar couldn't be changed", 422));
+        }
+
+        user.avatar = newFilename;
+        await user.save();
+
+        res.status(200).json({ user });
+      }
+    );
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
 
 // ===================Edit User Details===================
