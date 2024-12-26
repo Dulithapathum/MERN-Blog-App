@@ -1,6 +1,9 @@
 import { HttpError } from "../models/errorModel.js";
 import bcryptjs from "bcryptjs";
 import User from "../models/userModel.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 // ===================Register User===================
 // POST:api/users/register
 // UNPROTECTED
@@ -42,7 +45,30 @@ export const registerUser = async (req, res, next) => {
 // POST:api/users/login
 // UNPROTECTED
 export const loginUser = async (req, res, next) => {
-  res.json("Login User");
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return next(new HttpError("Fill In All Fields", 422));
+    }
+    const newEmail = email.trim().toLowerCase();
+    const user = await User.findOne({ email: newEmail });
+    if (!user) {
+      return next(new HttpError("Invalid credentials", 422));
+    }
+
+    const comparePass = await bcryptjs.compare(password, user.password);
+    if (!comparePass) {
+      return next(new HttpError("Invalid credentials", 422));
+    }
+
+    const { _id: id, name } = user;
+    const token = jwt.sign({ id, name }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    res.status(200).json({ token, id, name });
+  } catch (error) {
+    next(new HttpError("User Login Failed", 422));
+  }
 };
 
 // ===================User Profile===================
