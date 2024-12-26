@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./Routes/userRoutes.js";
 import postRoutes from "./Routes/postRoutes.js";
+import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
 
@@ -19,6 +20,9 @@ app.use(express.json());
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 // Server listening
 app.listen(PORT, () => {
