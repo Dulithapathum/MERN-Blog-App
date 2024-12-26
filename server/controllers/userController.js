@@ -75,7 +75,16 @@ export const loginUser = async (req, res, next) => {
 // POST:api/users/:id
 // PROTECTED
 export const getUser = async (req, res, next) => {
-  res.json("User Profile");
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id).select("-password");
+    if (!user) {
+      return next(new HttpError("User Not Found", 404));
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
 
 // ===================Change User Avatar===================
