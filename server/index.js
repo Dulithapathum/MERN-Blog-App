@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./Routes/userRoutes.js";
 import postRoutes from "./Routes/postRoutes.js";
+
 dotenv.config();
 
 connectDB(); // Database connection
