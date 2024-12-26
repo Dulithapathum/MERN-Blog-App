@@ -1,9 +1,19 @@
 import { Router } from "express";
+import {
+  registerUser,
+  loginUser,
+  getUser,
+  changeAvatar,
+  editUser,
+  getAuthors,
+} from "../controllers/userController.js";
 const router = Router();
 
-router.get("/", (req, res) => {
-  console.log("user routes");
-  res.json({ message: "User routes working" });
-});
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/:id", getUser);
+router.get("/", getAuthors);
+router.post("/change-avatar", changeAvatar);
+router.patch("/edit-user", editUser);
 
 export default router;
