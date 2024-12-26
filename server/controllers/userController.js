@@ -105,5 +105,10 @@ export const editUser = async (req, res, next) => {
 // POST:api/users/authors
 // UNPROTECTED
 export const getAuthors = async (req, res, next) => {
-  res.json("Get All Authors");
+  try {
+    const author = await User.find().select("-password");
+    res.status(200).json(author);
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
