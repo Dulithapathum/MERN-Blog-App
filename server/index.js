@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./Routes/userRoutes.js";
 import postRoutes from "./Routes/postRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
-
+import upload from "express-fileupload";
 dotenv.config();
 
 connectDB(); // Database connection
@@ -21,6 +21,11 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
+// File Upload  Middleware
+app.use(upload());
+app.use("/upload", express.static(__dirname + "/uploads"));
+
+// Error Handle Middleware
 app.use(notFound);
 app.use(errorHandler);
 
