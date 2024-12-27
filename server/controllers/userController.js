@@ -2,7 +2,6 @@ import { HttpError } from "../models/errorModel.js";
 import bcryptjs from "bcryptjs";
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { v4 as uuid } from "uuid";
@@ -10,8 +9,6 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-dotenv.config();
 
 // ===================Register User===================
 // POST:api/users/register
