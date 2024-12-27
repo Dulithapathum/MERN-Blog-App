@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../assetes/avatar1.jpg";
-const PostAuthor = () => {
+const PostAuthor = ({ authorID, createdAt }) => {
   return (
     <Link to={`posts/users/fbe`} className="flex items-center gap-2 ">
       <div className="w-10  ">

@@ -14,7 +14,7 @@ const PostsItem = ({ post }) => {
       <div className="">
         <img
           className="w-full h-56 bg-cover rounded-lg"
-          src={post.thumbnail}
+          src={`http://localhost:3000/upload/${post.thumbnail}`}
           alt={post.title}
         />
       </div>
@@ -22,9 +22,12 @@ const PostsItem = ({ post }) => {
         <Link to={`/posts/${post.id}`}>
           <h3 className="font-bold text-xl capitalize">{post.title}</h3>
         </Link>
-        <p className="my-2 text-gray-700"> {truncateText(post.disc, 20)}</p>
+        <p className="my-2 text-gray-700">
+          {" "}
+          {truncateText(post.description, 20)}
+        </p>
         <div className="flex  justify-between items-center">
-          <PostAuthor />
+          <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
           <Link
             to={`/posts/categories/${post.category}`}
             className="bg-blue-200 px-2 py-1 rounded-md text-blue-700 capitalize"

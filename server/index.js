@@ -24,7 +24,7 @@ app.use(express.json());
 
 // File Upload  Middleware
 app.use(upload());
-app.use("/upload", express.static(__dirname + "/uploads"));
+app.use("/upload", express.static(__dirname + "/upload"));
 
 // Routes
 app.use("/api/users", userRoutes);

@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostsItem from "./PostsItem";
-import { DUMMY_POSTS } from "../assetes/data";
+import axios from "axios";
 const Posts = () => {
-  const [posts, setPosts] = useState(DUMMY_POSTS);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const responce = await axios.get(" http://localhost:3000/api/posts");
+        setPosts(responce?.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPosts();
+  }, []);
   return (
     <>
       {posts.length > 0 ? (
