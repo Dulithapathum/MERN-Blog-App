@@ -90,7 +90,15 @@ export const getAllPosts = async (req, res, next) => {
 // GET:api/posts:id
 // UNPROTECTED
 export const getPost = async (req, res, next) => {
-  res.json("get single post");
+  try {
+    const posts = await Post.findById(req.params.id).sort({ updatedAt: -1 });
+    if (!posts) {
+      return next(new HttpError(" Post not found", 404));
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
 
 // ===================Get Post By Category===================
