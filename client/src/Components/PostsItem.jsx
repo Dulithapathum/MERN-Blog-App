@@ -19,7 +19,7 @@ const PostsItem = ({ post }) => {
         />
       </div>
       <div>
-        <Link to={`/posts/${post.id}`}>
+        <Link to={`/posts/${post._id}`}>
           <h3 className="font-bold text-xl capitalize">{post.title}</h3>
         </Link>
         <p className="my-2 text-gray-700">
