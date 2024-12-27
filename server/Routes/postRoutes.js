@@ -8,14 +8,15 @@ import {
   editPost,
   deletePost,
 } from "../controllers/postController.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 const router = Router();
 
-router.post("/", createPost);
+router.post("/", authMiddleware, createPost);
 router.get("/", getAllPosts);
 router.get("/:id", getPost);
 router.get("/categories/category", getCatPosts);
 router.get("/users/:id", getUserPosts);
-router.patch("/:id", editPost);
-router.delete("/:id", deletePost);
+router.patch("/:id", authMiddleware, editPost);
+router.delete("/:id", authMiddleware, deletePost);
 
 export default router;
