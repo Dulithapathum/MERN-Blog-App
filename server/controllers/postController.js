@@ -208,5 +208,36 @@ export const editPost = async (req, res, next) => {
 // DELETE:api/post/:id
 // PROTECTED
 export const deletePost = async (req, res, next) => {
-  res.json("delete post");
+  try {
+    const postId = req.params.id;
+
+    if (!postId) {
+      return next(new HttpError("Post unavailable", 400));
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return next(new HttpError("Post not found", 404));
+    }
+
+    const filePath = path.join(__dirname, "..", "upload", post.thumbnail);
+    fs.unlink(filePath, async (err) => {
+      if (err) {
+        console.error("Error deleting thumbnail file:", err);
+        return next(new HttpError("Failed to delete the thumbnail", 500));
+      }
+
+      await Post.findByIdAndDelete(postId);
+
+      const currentUser = await User.findById(post.creator);
+      if (currentUser) {
+        const updatedPostCount = Math.max(0, currentUser.posts - 1);
+        await User.findByIdAndUpdate(post.creator, { posts: updatedPostCount });
+      }
+
+      res.status(200).json({ message: "Post deleted successfully" });
+    });
+  } catch (error) {
+    next(new HttpError(error.message || "An error occurred", 500));
+  }
 };
