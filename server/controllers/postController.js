@@ -134,7 +134,74 @@ export const getUserPosts = async (req, res, next) => {
 // PATCH:api/post/:id
 // PROTECTED
 export const editPost = async (req, res, next) => {
-  res.json("Edit  Post");
+  try {
+    let updatedPost;
+    const postId = req.params.id;
+    const { title, category, description } = req.body;
+
+    if (!title || !category || !description) {
+      return next(new HttpError("All fields are required", 422));
+    }
+
+    if (!req.files.thumbnail) {
+      updatedPost = await Post.findByIdAndUpdate(
+        postId,
+        { title, category, description },
+        { new: true }
+      );
+    } else {
+      const oldPost = await Post.findById(postId);
+      if (oldPost) {
+        fs.unlink(
+          path.join(__dirname, "..", "upload", oldPost.thumbnail),
+          (err) => {
+            if (err) {
+              return next(
+                new HttpError(
+                  err.message || "Could not delete old thumbnail",
+                  500
+                )
+              );
+            }
+          }
+        );
+      }
+
+      const thumbnail = req.files.thumbnail;
+      if (thumbnail.size > 2 * 1024 * 1024) {
+        return next(
+          new HttpError(
+            "Thumbnail is too big. File size should be less than 2MB",
+            422
+          )
+        );
+      }
+
+      const filename = thumbnail.name;
+      const splittedFilename = filename.split(".");
+      const newFilename =
+        splittedFilename[0] +
+        uuid() +
+        "." +
+        splittedFilename[splittedFilename.length - 1];
+
+      await thumbnail.mv(path.join(__dirname, "..", "upload", newFilename));
+
+      updatedPost = await Post.findByIdAndUpdate(
+        postId,
+        { title, category, description, thumbnail: newFilename },
+        { new: true }
+      );
+    }
+
+    if (!updatedPost) {
+      return next(new HttpError("Couldn't update the post", 400));
+    }
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    next(new HttpError(error.message || "Something went wrong", 500));
+  }
 };
 
 // ===================Delete  Post===================
