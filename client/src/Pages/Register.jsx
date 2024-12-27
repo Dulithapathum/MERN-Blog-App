@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const Register = () => {
   const [userData, setUserData] = useState({
     name: "",
@@ -7,20 +9,54 @@ const Register = () => {
     password: "",
     password2: "",
   });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const changeInputHandler = (e) => {
     setUserData((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/users/register`,
+        userData
+      );
+      const newUser = response.data;
+
+      if (!newUser) {
+        setError("Couldn't register user");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          (err.request
+            ? "No response from server."
+            : "An unexpected error occurred.")
+      );
+    }
+  };
+
   return (
     <section className="flex justify-center items-center">
-      <div className="bg-slate-200 p-10 w-full max-w-[500px] rounded-md m-5 flex flex-col justify-center items-center ">
+      <div className="bg-slate-200 p-10 w-full max-w-[500px] rounded-md m-5 flex flex-col justify-center items-center">
         <h2 className="text-center font-bold text-3xl">Sign Up</h2>
-        <form action="" className="flex flex-col items-center w-full">
-          <p className="w-full  p-1 text-white  bg-red-600 rounded-md m-1 mt-8">
-            This is error message
-          </p>
+        <form
+          className="flex flex-col items-center w-full"
+          onSubmit={registerUser}
+        >
+          {error && (
+            <p className="w-full p-1 text-white bg-red-600 rounded-md m-1 mt-8">
+              {error}
+            </p>
+          )}
           <input
             type="text"
             placeholder="Full Name"
@@ -36,7 +72,7 @@ const Register = () => {
             name="email"
             value={userData.email}
             onChange={changeInputHandler}
-            className="w-full  p-2 m-2 rounded-md outline-none"
+            className="w-full p-2 m-2 rounded-md outline-none"
           />
           <input
             type="password"
@@ -44,24 +80,24 @@ const Register = () => {
             name="password"
             value={userData.password}
             onChange={changeInputHandler}
-            className="w-full  p-2 m-2 rounded-md outline-none"
+            className="w-full p-2 m-2 rounded-md outline-none"
           />
           <input
             type="password"
             placeholder="Confirm Password"
-            name="password"
+            name="password2"
             value={userData.password2}
             onChange={changeInputHandler}
-            className="w-full  p-2 m-2 rounded-md outline-none"
+            className="w-full p-2 m-2 rounded-md outline-none"
           />
           <button
             type="submit"
-            className="p-2 m-2 bg-slate-300 w-full max-w-[400px]  rounded-md"
+            className="p-2 m-2 bg-slate-300 w-full max-w-[400px] rounded-md"
           >
             Register
           </button>
           <small className="text-lg">
-            Alredy have an account ?{" "}
+            Already have an account?{" "}
             <Link to="/login" className="text-blue-500">
               Sign In
             </Link>
