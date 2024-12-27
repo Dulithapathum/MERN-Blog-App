@@ -32,7 +32,7 @@ const Register = () => {
       if (!newUser) {
         setError("Couldn't register user");
       } else {
-        navigate("/");
+        navigate("/login");
       }
     } catch (err) {
       setError(
