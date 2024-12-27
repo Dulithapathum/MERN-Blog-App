@@ -77,41 +77,46 @@ export const createPost = (req, res, next) => {
 // ===================Get All Post===================
 // GET:api/posts
 // UNPROTECTED
-export const getAllPosts = (req, res, next) => {
-  res.json("get all post");
+export const getAllPosts = async (req, res, next) => {
+  try {
+    const posts = await Post.find().sort({ updatedAt: -1 });
+    res.status(200).json(posts);
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
 
 // ===================Get Single  Post===================
 // GET:api/posts:id
 // UNPROTECTED
-export const getPost = (req, res, next) => {
+export const getPost = async (req, res, next) => {
   res.json("get single post");
 };
 
 // ===================Get Post By Category===================
 // GET:api/posts/categories/:category
 // UNPROTECTED
-export const getCatPosts = (req, res, next) => {
+export const getCatPosts = async (req, res, next) => {
   res.json("Get Post By Category");
 };
 
 // ===================Get Users/Authors Post===================
 // GET:api/posts/users/:id
 // UNPROTECTED
-export const getUserPosts = (req, res, next) => {
+export const getUserPosts = async (req, res, next) => {
   res.json("Get Users/Authors Post");
 };
 
 // ===================Edit  Post===================
 // PATCH:api/post/:id
 // PROTECTED
-export const editPost = (req, res, next) => {
+export const editPost = async (req, res, next) => {
   res.json("Edit  Post");
 };
 
 // ===================Delete  Post===================
 // DELETE:api/post/:id
 // PROTECTED
-export const deletePost = (req, res, next) => {
+export const deletePost = async (req, res, next) => {
   res.json("delete post");
 };
