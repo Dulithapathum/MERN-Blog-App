@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { authorsData } from "../assetes/data";
+import { UserContext } from "../Context/userContext";
 const UserProfile = () => {
   const [avatar, setAvatar] = useState(authorsData[1].avatar);
   const [name, setName] = useState("");
@@ -9,7 +10,15 @@ const UserProfile = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
 
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
   return (
     <section className="flex justify-center my-5 w-full ">
       <div className=" flex  flex-col  items-center w-full max-w-[800px] p-5 bg-blue-100 rounded-md">

@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PostsItem from "../Components/PostsItem";
 import { DUMMY_POSTS } from "../assetes/data";
+import { UserContext } from "../Context/userContext";
+import { useNavigate } from "react-router-dom";
+
 const CategoryPosts = () => {
   const [posts, setPosts] = useState(DUMMY_POSTS);
+  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
 
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
   return (
     <>
       {posts.length > 0 ? (
