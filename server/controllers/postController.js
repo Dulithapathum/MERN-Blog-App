@@ -120,7 +120,14 @@ export const getCatPosts = async (req, res, next) => {
 // GET:api/posts/users/:id
 // UNPROTECTED
 export const getUserPosts = async (req, res, next) => {
-  res.json("Get Users/Authors Post");
+  try {
+    const { id } = req.params;
+    const posts = await Post.find({ creator: id }).sort({ updatedAt: -1 });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    next(new HttpError(error));
+  }
 };
 
 // ===================Edit  Post===================
