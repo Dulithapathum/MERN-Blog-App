@@ -105,7 +105,15 @@ export const getPost = async (req, res, next) => {
 // GET:api/posts/categories/:category
 // UNPROTECTED
 export const getCatPosts = async (req, res, next) => {
-  res.json("Get Post By Category");
+  try {
+    const { category } = req.params;
+    const catPosts = await Post.find({ category }).sort({ updatedAt: -1 });
+
+    res.status(200).json(catPosts);
+  } catch (error) {
+    next(new HttpError(error));
+    // console.log("dddd");
+  }
 };
 
 // ===================Get Users/Authors Post===================
