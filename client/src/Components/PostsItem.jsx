@@ -22,10 +22,12 @@ const PostsItem = ({ post }) => {
         <Link to={`/posts/${post._id}`}>
           <h3 className="font-bold text-xl capitalize">{post.title}</h3>
         </Link>
-        <p className="my-2 text-gray-700">
-          {" "}
-          {truncateText(post.description, 20)}
-        </p>
+        <p
+          className="my-2 text-md text-gray-700 text-justify"
+          dangerouslySetInnerHTML={{
+            __html: truncateText(post.description, 20),
+          }}
+        ></p>
         <div className="flex  justify-between items-center">
           <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
           <Link
