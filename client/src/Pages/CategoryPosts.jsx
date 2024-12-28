@@ -1,25 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostsItem from "../Components/PostsItem";
+import Loading from "../Components/Loading";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const CategoryPosts = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { category } = useParams();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const responce = await axios.get(
-          ` http://localhost:3000/api/posts/categories/${category}`
+        const response = await axios.get(
+          `http://localhost:3000/api/posts/categories/${category}`
         );
-        setPosts(responce?.data);
+        setPosts(response?.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPosts();
   }, [category]);
+
+  if (loading) return <Loading />;
 
   return (
     <>

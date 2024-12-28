@@ -19,7 +19,10 @@ const app = express();
 const PORT = 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // Your React app's URL
+  credentials: true
+}));
 app.use(express.json());
 
 // File Upload  Middleware

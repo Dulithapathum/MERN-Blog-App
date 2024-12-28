@@ -4,6 +4,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { UserContext } from "../Context/userContext";
 import axios from "axios";
+import Loading from "../Components/Loading";
+
 const EditPost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
@@ -14,11 +16,15 @@ const EditPost = () => {
   const token = currentUser?.token;
   const { id } = useParams();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
   }, [token, navigate]);
+
   const POST_CATEGORIES = [
     "Uncategorized",
     "Technology",
@@ -49,6 +55,7 @@ const EditPost = () => {
     "link",
     "image",
   ];
+
   useEffect(() => {
     const getPost = async () => {
       try {
@@ -64,6 +71,8 @@ const EditPost = () => {
       } catch (error) {
         console.log(error);
         setError("Failed to fetch post data.");
+      } finally {
+        setLoading(false);
       }
     };
     getPost();
@@ -71,16 +80,14 @@ const EditPost = () => {
 
   const editPost = async (e) => {
     e.preventDefault();
-
-    setError("");
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("category", category);
-    formData.append("description", description);
-    formData.append("thumbnail", thumbnail);
-
+    setSubmitLoading(true);
     try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("category", category);
+      formData.append("description", description);
+      formData.append("thumbnail", thumbnail);
+
       await axios.patch(`http://localhost:3000/api/posts/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -91,8 +98,14 @@ const EditPost = () => {
     } catch (err) {
       const errorMessage = err.response?.data?.message || "An error occurred.";
       setError(errorMessage);
+    } finally {
+      setSubmitLoading(false);
     }
   };
+
+  if (loading) return <Loading />;
+  if (submitLoading) return <Loading />;
+
   return (
     <section className="max-w-[1000px] mx-auto my-5 bg-slate-300 p-6 rounded-md">
       <div>

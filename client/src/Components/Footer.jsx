@@ -5,19 +5,19 @@ const Footer = () => {
     <footer className="flex  flex-col min-h-44 p-3 justify-evenly items-center bg-black">
       <ul className="flex items-center justify-center flex-wrap gap-5">
         <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
-          <Link to="posts/categories/Tech">Tech</Link>
+          <Link to="posts/categories/Technology">Technology</Link>
         </li>
         <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
-          <Link to="posts/categories/games">Games</Link>
+          <Link to="posts/categories/Education">Education</Link>
         </li>
         <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
-          <Link to="posts/categories/business">Business</Link>
+          <Link to="posts/categories/Health">Health</Link>
         </li>
         <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
-          <Link to="posts/categories/helth">Helth</Link>
+          <Link to="posts/categories/Travel">Travel</Link>
         </li>
         <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
-          <Link to="posts/categories/vechicle">Vechicle</Link>
+          <Link to="posts/categories/Lifestyle">Lifestyle</Link>
         </li>
       </ul>
       <div className="w-full flex flex-col items-center ">

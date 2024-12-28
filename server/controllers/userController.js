@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import { v4 as uuid } from "uuid";
 import { fileURLToPath } from "url";
+import { mkdir } from 'fs/promises';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -101,17 +102,30 @@ export const changeAvatar = async (req, res, next) => {
     if (!req.files || !req.files.avatar) {
       return next(new HttpError("Please choose an image", 422));
     }
+
+    // Ensure upload directory exists
+    const uploadDir = path.join(__dirname, "..", "upload");
+    try {
+      await mkdir(uploadDir, { recursive: true });
+    } catch (err) {
+      if (err.code !== 'EEXIST') {
+        return next(new HttpError("Couldn't create upload directory", 500));
+      }
+    }
+
     const user = await User.findById(req.user.id);
     if (!user) {
       return next(new HttpError("User Not Found", 404));
     }
 
+    // Delete old avatar if exists
     if (user.avatar) {
-      fs.unlink(path.join(__dirname, "..", "upload", user.avatar), (error) => {
-        if (error) {
-          return next(new HttpError(error));
-        }
-      });
+      const oldAvatarPath = path.join(__dirname, "..", "upload", user.avatar);
+      try {
+        await fs.promises.unlink(oldAvatarPath);
+      } catch (error) {
+        console.log("Old avatar not found or couldn't be deleted");
+      }
     }
 
     const { avatar } = req.files;
@@ -139,7 +153,11 @@ export const changeAvatar = async (req, res, next) => {
         user.avatar = newFilename;
         await user.save();
 
-        res.status(200).json({ user });
+        // Return full user object with avatar URL
+        const userResponse = user.toObject();
+        userResponse.avatarUrl = `http://localhost:3000/upload/${newFilename}`;
+
+        res.status(200).json({ user: userResponse });
       }
     );
   } catch (error) {

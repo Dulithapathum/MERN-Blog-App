@@ -20,32 +20,35 @@ const DeletePost = ({ postID, onDelete }) => {
       const response = await axios.delete(
         `http://localhost:3000/api/posts/${id}`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }
         }
       );
+      
       if (response.status === 200) {
         if (onDelete) {
           onDelete(id);
-        } else if (location.pathname === `/myposts/${currentUser.id}`) {
-          window.location.reload();
-        } else {
+        } else if (location.pathname === `/posts/${id}`) {
           navigate("/");
+        } else {
+          window.location.reload();
         }
       }
     } catch (error) {
       console.error("Failed to delete post:", error);
-      alert("Unable to delete the post. Please try again later.");
     }
   };
+
   return (
-    <div>
-      <button
-        className="m-1 px-3 py-1 rounded-md bg-red-700 text-white"
-        onClick={() => deletePost(postID)}
-      >
-        Delete
-      </button>
-    </div>
+    <button
+      className="m-1 px-3 py-1 rounded-md bg-red-700 text-white"
+      onClick={() => {
+        if (window.confirm('Are you sure you want to delete this post?')) {
+          deletePost(postID);
+        }
+      }}
+    >
+      Delete
+    </button>
   );
 };
 

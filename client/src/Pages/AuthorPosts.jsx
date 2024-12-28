@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
 import PostsItem from "../Components/PostsItem";
+import Loading from "../Components/Loading";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const AuthorPosts = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const responce = await axios.get(
-          ` http://localhost:3000/api/posts/users/${id}`
+        const response = await axios.get(
+          `http://localhost:3000/api/posts/users/${id}`
         );
-        setPosts(responce?.data);
+        setPosts(response?.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPosts();
   }, [id]);
+
+  if (loading) return <Loading />;
+
   return (
     <>
       {posts.length > 0 ? (

@@ -1,15 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loading from "../Components/Loading";
 import axios from "axios";
+
 const Authors = () => {
   const [authors, setAuthors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getAuthors = async () => {
-      const responce = await axios.get(`http://localhost:3000/api/users/`);
-      setAuthors(responce.data);
+      try {
+        const response = await axios.get("http://localhost:3000/api/users");
+        setAuthors(response?.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     };
     getAuthors();
   }, []);
+
+  if (loading) return <Loading />;
+
   return (
     <section className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto mt-20 mb-44  ">
       {authors.length > 0 ? (
