@@ -17,7 +17,9 @@ const Header = () => {
               </Link>
               <ul className="hidden md:flex gap-8 font-semibold capitalize">
                 <li>
-                  <Link to="profile/dfbfb">{currentUser?.name}</Link>
+                  <Link to={`profile/${currentUser.id}`}>
+                    {currentUser?.name}
+                  </Link>
                 </li>
                 <li>
                   <Link to="create">Create Post</Link>
@@ -43,7 +45,10 @@ const Header = () => {
             <div className="absolute top-20 left-0 w-full bg-slate-100 md:hidden shadow-md">
               <ul className="flex flex-col items-center gap-6 py-6 font-semibold capitalize">
                 <li>
-                  <Link to="profile" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to={`profile/${currentUser.id}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     {currentUser?.name}
                   </Link>
                 </li>
