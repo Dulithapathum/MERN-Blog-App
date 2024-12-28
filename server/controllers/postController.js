@@ -15,7 +15,6 @@ export const createPost = (req, res, next) => {
   try {
     const { title, category, description } = req.body;
 
-    const thumbnail = req.files.thumbnail;
     if (
       !title ||
       !category ||
@@ -27,6 +26,8 @@ export const createPost = (req, res, next) => {
         new HttpError("All fields, including thumbnail, are required", 422)
       );
     }
+
+    const thumbnail = req.files.thumbnail;
 
     if (thumbnail.size > 2 * 1024 * 1024) {
       return next(
@@ -49,8 +50,10 @@ export const createPost = (req, res, next) => {
       path.join(__dirname, "..", "upload", newFilename),
       async (err) => {
         if (err) {
-          return next(new HttpError(error));
-        } else {
+          return next(new HttpError("File upload failed", 500));
+        }
+
+        try {
           const newPost = await Post.create({
             title,
             category,
@@ -60,17 +63,21 @@ export const createPost = (req, res, next) => {
           });
 
           if (!newPost) {
-            return next(new HttpError(" Post couldn't be created", 422));
+            return next(new HttpError("Post couldn't be created", 422));
           }
+
           const currentUser = await User.findById(req.user.id);
           const userPostCount = currentUser.posts + 1;
           await User.findByIdAndUpdate(req.user.id, { posts: userPostCount });
+
           res.status(201).json(newPost);
+        } catch (error) {
+          next(new HttpError(error.message, 500));
         }
       }
     );
   } catch (error) {
-    next(new HttpError(error));
+    next(new HttpError(error.message, 500));
   }
 };
 
