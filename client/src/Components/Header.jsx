@@ -17,7 +17,7 @@ const Header = () => {
               </Link>
               <ul className="hidden md:flex gap-8 font-semibold capitalize">
                 <li>
-                  <Link to="profile/dfbfb">Dulitha Pathum</Link>
+                  <Link to="profile/dfbfb">{currentUser?.name}</Link>
                 </li>
                 <li>
                   <Link to="create">Create Post</Link>
@@ -44,7 +44,7 @@ const Header = () => {
               <ul className="flex flex-col items-center gap-6 py-6 font-semibold capitalize">
                 <li>
                   <Link to="profile" onClick={() => setIsMenuOpen(false)}>
-                    Dulitha Pathum
+                    {currentUser?.name}
                   </Link>
                 </li>
                 <li>
