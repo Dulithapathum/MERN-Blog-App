@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostsItem from "../Components/PostsItem";
-import { DUMMY_POSTS } from "../assetes/data";
-const AuthorPosts = () => {
-  const [posts, setPosts] = useState(DUMMY_POSTS);
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
+const AuthorPosts = () => {
+  const [posts, setPosts] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const responce = await axios.get(
+          ` http://localhost:3000/api/posts/users/${id}`
+        );
+        setPosts(responce?.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPosts();
+  }, []);
   return (
     <>
       {posts.length > 0 ? (
         <div className=" max-w-[1200px] mx-6  lg:mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (
-            <PostsItem key={post.id} post={post} />
+            <PostsItem key={post._id} post={post} />
           ))}
         </div>
       ) : (
