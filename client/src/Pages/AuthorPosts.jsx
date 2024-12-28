@@ -18,7 +18,7 @@ const AuthorPosts = () => {
       }
     };
     fetchPosts();
-  }, []);
+  }, [id]);
   return (
     <>
       {posts.length > 0 ? (
