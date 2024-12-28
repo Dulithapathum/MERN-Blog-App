@@ -1,7 +1,9 @@
-import React, { useState, useNavigate, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { UserContext } from "../Context/userContext";
+import axios from "axios";
 const EditPost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
@@ -10,7 +12,8 @@ const EditPost = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
-
+  const { id } = useParams();
+  const [error, setError] = useState("");
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -46,15 +49,64 @@ const EditPost = () => {
     "link",
     "image",
   ];
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/posts/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setTitle(response.data.title);
+        setCategory(response.data.category);
+        setDescription(response.data.description);
+      } catch (error) {
+        console.log(error);
+        setError("Failed to fetch post data.");
+      }
+    };
+    getPost();
+  }, [id, token]);
 
+  const editPost = async (e) => {
+    e.preventDefault();
+
+    setError("");
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("thumbnail", thumbnail);
+
+    try {
+      await axios.patch(`http://localhost:3000/api/posts/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      navigate("/");
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || "An error occurred.";
+      setError(errorMessage);
+    }
+  };
   return (
     <section className="max-w-[1000px] mx-auto my-5 bg-slate-300 p-6 rounded-md">
       <div>
         <h2 className="text-center text-4xl font-bold">Edit Post</h2>
-        <p className="w-full  p-2 text-white  bg-red-500 rounded-md m-1 mt-8">
-          This is an error message
-        </p>
-        <form action="" className="flex flex-col bg-slate-300">
+        {error && (
+          <p className="w-full  p-2 text-white  bg-red-500 rounded-md m-1 mt-8">
+            {error}
+          </p>
+        )}
+        <form
+          action=""
+          className="flex flex-col bg-slate-300"
+          onSubmit={editPost}
+        >
           <input
             type="text"
             placeholder="Title"
