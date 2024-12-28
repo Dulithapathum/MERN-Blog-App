@@ -38,7 +38,7 @@ const PostDetail = () => {
                   >
                     Edit
                   </Link>
-                  <DeletePost postId={id} />
+                  <DeletePost postID={id} />
                 </div>
               )}
             </div>

@@ -23,7 +23,7 @@ const UserProfile = () => {
     <section className="flex justify-center my-5 w-full ">
       <div className=" flex  flex-col  items-center w-full max-w-[800px] p-5 bg-blue-100 rounded-md">
         <Link
-          to={`/myposts/sdvv`}
+          to={`/myposts/${currentUser.id}`}
           className="bg-slate-500 px-4 py-1 rounded-md text-white  my-5"
         >
           My posts

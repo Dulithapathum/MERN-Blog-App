@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { DUMMY_POSTS } from "../assetes/data";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
+import DeletePost from "../Pages/DeletePost";
 const Dashboard = () => {
   const [posts, setPosts] = useState(DUMMY_POSTS);
   const navigate = useNavigate();
@@ -45,12 +46,7 @@ const Dashboard = () => {
                 >
                   Edit
                 </Link>
-                <Link
-                  className="bg-slate-200 h-8  px-4 rounded-md py-1 bg-red-500  "
-                  to={`/posts/${post.id}/delete`}
-                >
-                  Delete
-                </Link>
+                <DeletePost postID={post.id} />
               </div>
             </article>
           ))}

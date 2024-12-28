@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
+import axios from "axios";
 
-const DeletePost = () => {
+const DeletePost = ({ postID, onDelete }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { currentUser } = useContext(UserContext);
   const token = currentUser?.token;
 
@@ -12,15 +14,37 @@ const DeletePost = () => {
       navigate("/login");
     }
   }, [token, navigate]);
+
+  const deletePost = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/posts/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (response.status === 200) {
+        if (onDelete) {
+          onDelete(id);
+        } else if (location.pathname === `/myposts/${currentUser.id}`) {
+          window.location.reload();
+        } else {
+          navigate("/");
+        }
+      }
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+      alert("Unable to delete the post. Please try again later.");
+    }
+  };
   return (
     <div>
-      {" "}
-      <Link
-        className=" m-1 px-3 py-1 rounded-md bg-red-700 text-white"
-        to={`/posts/werwer/delete`}
+      <button
+        className="m-1 px-3 py-1 rounded-md bg-red-700 text-white"
+        onClick={() => deletePost(postID)}
       >
         Delete
-      </Link>
+      </button>
     </div>
   );
 };
