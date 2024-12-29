@@ -46,8 +46,8 @@ const Register = () => {
 
   return (
     <section className="flex justify-center items-center">
-      <div className="bg-slate-200 p-10 w-full max-w-[500px] rounded-md m-5 flex flex-col justify-center items-center">
-        <h2 className="text-center font-bold text-3xl">Sign Up</h2>
+      <div className="bg-white bg-opacity-50 backdrop-blur-md p-10 w-full max-w-[500px] rounded-md m-5 flex flex-col justify-center items-center">
+        <h2 className="text-center font-bold text-3xl mb-4">Sign Up</h2>
         <form
           className="flex flex-col items-center w-full"
           onSubmit={registerUser}
@@ -92,13 +92,13 @@ const Register = () => {
           />
           <button
             type="submit"
-            className="p-2 m-2 bg-slate-300 w-full max-w-[400px] rounded-md"
+            className="p-2 m-2 bg-blue-500 hover:bg-blue-600 transition-colors text-white w-full max-w-[400px] rounded-md"
           >
             Register
           </button>
           <small className="text-lg">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500">
+            <Link to="/login" className="text-blue-500 hover:text-blue-600">
               Sign In
             </Link>
           </small>

@@ -44,7 +44,7 @@ const Dashboard = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className="my-32">
       {posts.length > 0 ? (
         <div>
           {posts.map((post) => (

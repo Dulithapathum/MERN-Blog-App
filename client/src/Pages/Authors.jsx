@@ -24,7 +24,7 @@ const Authors = () => {
   if (loading) return <Loading />;
 
   return (
-    <section className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto mt-20 mb-44  ">
+    <section className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-[1200px] mx-auto my-44  ">
       {authors.length > 0 ? (
         authors.map(({ _id, avatar, name, posts }) => (
           <Link
