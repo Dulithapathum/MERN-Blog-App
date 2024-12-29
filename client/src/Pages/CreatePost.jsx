@@ -70,7 +70,7 @@ const CreatePost = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      navigate("/posts");
+      navigate("/");
     } catch (err) {
       const errorMessage = err.response?.data?.message || "An error occurred.";
       setError(errorMessage);
