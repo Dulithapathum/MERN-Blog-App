@@ -15,20 +15,38 @@ const Header = () => {
               <Link to="/">
                 <img src={logo} alt="logo" className="w-20" />
               </Link>
-              <ul className="hidden md:flex gap-8 font-semibold capitalize">
+              <ul className="hidden md:flex gap-8 font-semibold capitalize ">
                 <li>
-                  <Link to={`profile/${currentUser.id}`}>
+                  <Link
+                    to={`profile/${currentUser.id}`}
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
                     {currentUser?.name}
                   </Link>
                 </li>
                 <li>
-                  <Link to="create">Create Post</Link>
+                  <Link
+                    to="create"
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
+                    Create Post
+                  </Link>
                 </li>
                 <li>
-                  <Link to="authors">Authors</Link>
+                  <Link
+                    to="authors"
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
+                    Authors
+                  </Link>
                 </li>
                 <li>
-                  <Link to="logout">Logout</Link>
+                  <Link
+                    to="logout"
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
+                    Logout
+                  </Link>
                 </li>
               </ul>
 
@@ -48,22 +66,35 @@ const Header = () => {
                   <Link
                     to={`profile/${currentUser.id}`}
                     onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-[#87CEEB] transition-colors "
                   >
                     {currentUser?.name}
                   </Link>
                 </li>
                 <li>
-                  <Link to="create" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="create"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
                     Create Post
                   </Link>
                 </li>
                 <li>
-                  <Link to="authors" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="authors"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
                     Authors
                   </Link>
                 </li>
                 <li>
-                  <Link to="logout" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="logout"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
                     Logout
                   </Link>
                 </li>
@@ -76,15 +107,25 @@ const Header = () => {
         <nav className=" sticky top-0 z-50  flex items-center bg-slate-100 justify-center  shadow-md ">
           {
             <div className="flex justify-between items-center w-full max-w-[1200px] px-5 ">
-              <Link to="/">
+              <Link to="/" className="hover:text-[#87CEEB] transition-colors ">
                 <img src={logo} alt="logo" className="w-20" />
               </Link>
               <ul className="hidden md:flex gap-8 font-semibold capitalize">
                 <li>
-                  <Link to="authors">Authors</Link>
+                  <Link
+                    to="authors"
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
+                    Authors
+                  </Link>
                 </li>
                 <li>
-                  <Link to="login">Login</Link>
+                  <Link
+                    to="login"
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
+                    Login
+                  </Link>
                 </li>
               </ul>
 
@@ -101,12 +142,20 @@ const Header = () => {
             <div className="absolute top-20 left-0 w-full bg-slate-100 md:hidden shadow-md">
               <ul className="flex flex-col items-center gap-6 py-6 font-semibold capitalize">
                 <li>
-                  <Link to="authors" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="authors"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
                     Authors
                   </Link>
                 </li>
                 <li>
-                  <Link to="login" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-[#87CEEB] transition-colors "
+                  >
                     Login
                   </Link>
                 </li>
