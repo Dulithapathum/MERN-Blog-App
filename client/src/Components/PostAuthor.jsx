@@ -8,7 +8,7 @@ import en from "javascript-time-ago/locale/en.json";
 TimeAgo.addLocale(en);
 const PostAuthor = ({ authorID, createdAt }) => {
   const [author, setAuthor] = useState({});
-  
+
   useEffect(() => {
     const getAuthor = async () => {
       try {
@@ -27,13 +27,17 @@ const PostAuthor = ({ authorID, createdAt }) => {
     <Link to={`/posts/users/${authorID}`} className="flex items-center gap-2">
       <div className="w-10">
         <img
-          src={author?.avatar ? `http://localhost:3000/upload/${author.avatar}` : '/default-avatar.png'}
-          alt={author?.name || 'Author'}
+          src={
+            author?.avatar
+              ? `http://localhost:3000/upload/${author.avatar}`
+              : "/default-avatar.png"
+          }
+          alt={author?.name || "Author"}
           className="w-full rounded-md"
         />
       </div>
       <div>
-        <h5 className="font-semibold">By: {author?.name}</h5>
+        <h5 className="font-semibold text-gray-700">By: {author?.name}</h5>
         <small className="text-sm text-gray-500">
           <ReactTimeAgo date={new Date(createdAt)} locale="en" />
         </small>
