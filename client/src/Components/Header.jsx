@@ -19,7 +19,7 @@ const Header = () => {
                 <li>
                   <Link
                     to={`profile/${currentUser.id}`}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     {currentUser?.name}
                   </Link>
@@ -27,7 +27,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="create"
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Create Post
                   </Link>
@@ -35,7 +35,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="authors"
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Authors
                   </Link>
@@ -43,7 +43,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="logout"
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Logout
                   </Link>
@@ -66,7 +66,7 @@ const Header = () => {
                   <Link
                     to={`profile/${currentUser.id}`}
                     onClick={() => setIsMenuOpen(false)}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     {currentUser?.name}
                   </Link>
@@ -75,7 +75,7 @@ const Header = () => {
                   <Link
                     to="create"
                     onClick={() => setIsMenuOpen(false)}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Create Post
                   </Link>
@@ -84,7 +84,7 @@ const Header = () => {
                   <Link
                     to="authors"
                     onClick={() => setIsMenuOpen(false)}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Authors
                   </Link>
@@ -93,7 +93,7 @@ const Header = () => {
                   <Link
                     to="logout"
                     onClick={() => setIsMenuOpen(false)}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Logout
                   </Link>
@@ -114,7 +114,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="authors"
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Authors
                   </Link>
@@ -122,7 +122,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="login"
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Login
                   </Link>
@@ -145,7 +145,7 @@ const Header = () => {
                   <Link
                     to="authors"
                     onClick={() => setIsMenuOpen(false)}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Authors
                   </Link>
@@ -154,7 +154,7 @@ const Header = () => {
                   <Link
                     to="login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="hover:text-[#87CEEB] transition-colors "
+                    className="hover:text-blue-500 transition-colors "
                   >
                     Login
                   </Link>

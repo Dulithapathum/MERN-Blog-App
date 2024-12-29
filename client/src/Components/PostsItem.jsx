@@ -10,7 +10,7 @@ const PostsItem = ({ post }) => {
   };
 
   return (
-    <article className="my-3 bg-slate-200 p-4 rounded-lg flex  flex-col justify-start hover:shadow-lg transition-shadow">
+    <article className="my-3 bg-white bg-opacity-50 backdrop-blur-md p-4 rounded-lg flex  flex-col justify-start hover:shadow-lg transition-shadow">
       <div className="">
         <img
           className="w-full h-56 bg-cover rounded-lg"
@@ -20,7 +20,9 @@ const PostsItem = ({ post }) => {
       </div>
       <div>
         <Link to={`/posts/${post._id}`}>
-          <h3 className="font-bold text-xl capitalize">{post.title}</h3>
+          <h3 className="font-bold text-xl capitalize  hover:text-blue-500 transition-all">
+            {post.title}
+          </h3>
         </Link>
         <p
           className="my-2 text-md text-gray-700 text-justify"
@@ -32,7 +34,7 @@ const PostsItem = ({ post }) => {
           <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
           <Link
             to={`/posts/categories/${post.category}`}
-            className="bg-blue-200 px-2 py-1 rounded-md text-blue-700 capitalize"
+            className="bg-blue-500 px-2 py-1 rounded-md text-white capitalize hover:bg-blue-600 transition-colors"
           >
             {post.category}
           </Link>

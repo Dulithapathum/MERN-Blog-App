@@ -33,11 +33,13 @@ const PostAuthor = ({ authorID, createdAt }) => {
               : "/default-avatar.png"
           }
           alt={author?.name || "Author"}
-          className="w-full rounded-md"
+          className="w-full rounded-md "
         />
       </div>
       <div>
-        <h5 className="font-semibold text-gray-700">By: {author?.name}</h5>
+        <h5 className="font-semibold text-gray-700 hover:text-blue-600 transition-colors">
+          By: {author?.name}
+        </h5>
         <small className="text-sm text-gray-500">
           <ReactTimeAgo date={new Date(createdAt)} locale="en" />
         </small>

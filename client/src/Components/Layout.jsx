@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Outlet } from "react-router-dom";
 const Layout = () => {
   return (
-    <div className="bg-[#87CEEB]">
+    <div className="bg-[#ADD8E6]">
       <Header />
       <Outlet />
       <Footer />
