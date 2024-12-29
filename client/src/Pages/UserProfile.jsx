@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
-import { authorsData } from "../assetes/data";
+import Avatar from "../assetes/avatar.png";
 import { UserContext } from "../Context/userContext";
 import axios from "axios";
 
 const UserProfile = () => {
-  const [avatar, setAvatar] = useState(authorsData[1].avatar);
+  const [avatar, setAvatar] = useState(Avatar);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -43,7 +43,6 @@ const UserProfile = () => {
     }
   };
 
-  // Handle avatar change
   const changeAvatarHandler = async (e) => {
     e.preventDefault();
     try {
@@ -70,7 +69,6 @@ const UserProfile = () => {
     }
   };
 
-  // Handle form submission
   const updateUserHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -87,7 +85,7 @@ const UserProfile = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setError("");
-      // Clear password fields after successful update
+
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
@@ -100,12 +98,12 @@ const UserProfile = () => {
 
   return (
     <section className="flex justify-center my-5 w-full ">
-      <div className=" flex  flex-col  items-center w-full max-w-[800px] p-5 bg-blue-100 rounded-md">
+      <div className=" flex  flex-col  items-center w-full max-w-[800px] p-5 bg-white bg-opacity-50 backdrop-blur-md rounded-md">
         <Link
           to={`/myposts/${currentUser.id}`}
-          className="bg-slate-500 px-4 py-1 rounded-md text-white  my-5"
+          className="bg-blue-500 hover:bg-blue-600 transition-colors px-10 py-2 rounded-md text-white  my-5"
         >
-          My posts
+          My Posts
         </Link>
         <div className="relative">
           <div className="w-48 h-48 mx-auto relative mb-4">
@@ -117,7 +115,7 @@ const UserProfile = () => {
 
             <form
               action=""
-              className="absolute bottom-2 right-2  bg-black/90 p-2 rounded-full"
+              className="absolute bottom-2 right-2   bg-black/90 p-2 rounded-full"
             >
               <input
                 type="file"
@@ -135,13 +133,13 @@ const UserProfile = () => {
               </label>
             </form>
           </div>
-          <h1 className="font-bold text-3xl text-center">Dulitha Pathum</h1>
+          <h1 className="font-bold text-3xl text-center uppercase ">{name}</h1>
           <form
             onSubmit={updateUserHandler}
-            className="w-full w-[500px] flex flex-col items-center p-3"
+            className="  sm:w-[500px]  flex flex-col items-center p-3"
           >
             {error && (
-              <p className="w-full p-2 m-2 rounded-md text-white bg-red-600">
+              <p className="w-full p-2 m-2 rounded-md text-white bg-red-500">
                 {error}
               </p>
             )}
@@ -187,10 +185,10 @@ const UserProfile = () => {
             />
             <button
               disabled={isLoading}
-              className="w-full p-3 m-2 rounded-md bg-blue-400 text-white disabled:opacity-75"
+              className="w-full p-3 m-2 rounded-md bg-blue-500 hover:bg-blue-600 transition-colors text-white disabled:opacity-75"
               type="submit"
             >
-              {isLoading ? "Updating..." : "Update Details"}
+              {isLoading ? "Updating..." : "Update  Details"}
             </button>
           </form>
         </div>
