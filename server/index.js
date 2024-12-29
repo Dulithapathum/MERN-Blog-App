@@ -16,11 +16,12 @@ dotenv.config();
 connectDB(); // Database connection
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:5173", // Your React app's URL
+  origin: CLIENT_URL,
   credentials: true
 }));
 app.use(express.json());
