@@ -4,19 +4,19 @@ const Footer = () => {
   return (
     <footer className="flex  flex-col min-h-44 p-3 justify-evenly items-center bg-black">
       <ul className="flex items-center justify-center flex-wrap gap-5">
-        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
+        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors font-semibold">
           <Link to="posts/categories/Technology">Technology</Link>
         </li>
-        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
+        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-color font-semibold">
           <Link to="posts/categories/Education">Education</Link>
         </li>
-        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
+        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-color font-semibold">
           <Link to="posts/categories/Health">Health</Link>
         </li>
-        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
+        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-color font-semibold">
           <Link to="posts/categories/Travel">Travel</Link>
         </li>
-        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-colors">
+        <li className="bg-slate-700 text-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-color font-semibold">
           <Link to="posts/categories/Lifestyle">Lifestyle</Link>
         </li>
       </ul>
@@ -24,7 +24,10 @@ const Footer = () => {
         <hr className=" bg-white w-full" />
         <div className="">
           <small className="text-slate-100 font-semibold">
-            All Right Reserved &copy; Copyright by Dulitha Pathum
+            All Right Reserved &copy; Copyright by{" "}
+            <Link to={`/`} className="font-bold">
+              DP BLOG
+            </Link>
           </small>
         </div>
       </div>
