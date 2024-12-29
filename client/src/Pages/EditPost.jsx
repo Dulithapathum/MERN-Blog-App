@@ -107,19 +107,15 @@ const EditPost = () => {
   if (submitLoading) return <Loading />;
 
   return (
-    <section className="max-w-[1000px] mx-auto my-5 bg-slate-300 p-6 rounded-md">
+    <section className="max-w-[1000px] mx-auto my-20  bg-white bg-opacity-50 backdrop-blur-md p-6 rounded-md">
       <div>
-        <h2 className="text-center text-4xl font-bold">Edit Post</h2>
+        <h2 className="text-center mb-9 text-4xl font-bold">Edit Post</h2>
         {error && (
           <p className="w-full  p-2 text-white  bg-red-500 rounded-md m-1 mt-8">
             {error}
           </p>
         )}
-        <form
-          action=""
-          className="flex flex-col bg-slate-300"
-          onSubmit={editPost}
-        >
+        <form action="" className="flex flex-col gap-2 " onSubmit={editPost}>
           <input
             type="text"
             placeholder="Title"
@@ -153,9 +149,9 @@ const EditPost = () => {
           />
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-semibold h-30 p-2 outline-none   rounded-md m-1 "
+            className="w-full bg-blue-500 hover:bg-blue-600 transition-colors text-white font-semibold h-30 p-2 outline-none rounded-md m-1"
           >
-            Update
+            Update Post
           </button>
         </form>
       </div>
