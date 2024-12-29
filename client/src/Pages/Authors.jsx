@@ -30,13 +30,13 @@ const Authors = () => {
           <Link
             key={_id}
             to={`/posts/users/${_id}`}
-            className="flex justify-center items-center gap-4 m-3 p-2 bg-slate-400 rounded-md hover:shadow-lg"
+            className="flex justify-center items-center gap-4 m-3 p-5 hover:text-blue-600 bg-white bg-opacity-50 backdrop-blur-md rounded-md hover:shadow-lg transition-colors"
           >
             <div>
               <img
                 src={`http://localhost:3000/upload/${avatar}`}
                 alt={name}
-                className="w-14 h-14 rounded-full bg-cover"
+                className="w-16 h-16 rounded-full bg-cover"
               />
             </div>
             <div>
