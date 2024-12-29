@@ -20,10 +20,10 @@ const DeletePost = ({ postID, onDelete }) => {
       const response = await axios.delete(
         `http://localhost:3000/api/posts/${id}`,
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      
+
       if (response.status === 200) {
         if (onDelete) {
           onDelete(id);
@@ -40,9 +40,9 @@ const DeletePost = ({ postID, onDelete }) => {
 
   return (
     <button
-      className="m-1 px-3 py-1 rounded-md bg-red-700 text-white"
+      className="m-1 px-3 py-1 rounded-md bg-red-500 hover:bg-red-600 transition-colors text-white"
       onClick={() => {
-        if (window.confirm('Are you sure you want to delete this post?')) {
+        if (window.confirm("Are you sure you want to delete this post?")) {
           deletePost(postID);
         }
       }}

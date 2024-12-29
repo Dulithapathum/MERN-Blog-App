@@ -18,7 +18,9 @@ const PostDetail = () => {
     const getPost = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3000/api/posts/${id}`);
+        const response = await axios.get(
+          `http://localhost:3000/api/posts/${id}`
+        );
         setPost(response.data);
         setError(null);
       } catch (err) {
@@ -38,14 +40,14 @@ const PostDetail = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <section className="max-w-[900px] bg-slate-200 rounded-md p-10 m-6">
+      <section className="max-w-[900px] bg-white bg-opacity-50 backdrop-blur-md rounded-md p-10 m-6">
         <div>
           <div className="flex justify-between items-center">
             <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
             {currentUser?.id === post?.creator && (
               <div className="flex justify-center items-center">
                 <Link
-                  className="m-1 px-3 py-1 rounded-md bg-blue-700 text-white"
+                  className="m-1 px-3 py-1 rounded-md bg-blue-500 hover:bg-blue-600 transition-colors text-white"
                   to={`/posts/${post._id}/edit`}
                 >
                   Edit
@@ -54,8 +56,10 @@ const PostDetail = () => {
               </div>
             )}
           </div>
-          <h1 className="text-3xl font-bold uppercase my-4">{post.title}</h1>
-          <div>
+          <h1 className="text-4xl mt-10 font-bold uppercase my-4 text-center">
+            {post.title}
+          </h1>
+          <div className="flex justify-center">
             <img
               src={`http://localhost:3000/upload/${post.thumbnail}`}
               alt={post.title}
@@ -63,7 +67,7 @@ const PostDetail = () => {
             />
           </div>
           <p
-            className="text-justify text-xl font-semibold mt-6 text-gray-800"
+            className="text-justify text-2xl font-semibold mt-6 text-gray-900"
             dangerouslySetInnerHTML={{ __html: post.description }}
           ></p>
         </div>
