@@ -40,7 +40,7 @@ const DeletePost = ({ postID, onDelete }) => {
 
   return (
     <button
-      className="m-1 px-3 py-1 rounded-md bg-red-500 hover:bg-red-600 transition-colors text-white"
+      className="m-1 px-3 py-1 rounded-md  font-semibold bg-red-500 hover:bg-red-600 transition-colors text-white"
       onClick={() => {
         if (window.confirm("Are you sure you want to delete this post?")) {
           deletePost(postID);
