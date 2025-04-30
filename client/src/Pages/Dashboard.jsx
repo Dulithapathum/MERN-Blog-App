@@ -22,7 +22,7 @@ const Dashboard = () => {
     const fetchUserPosts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/posts/users/${currentUser.id}`,
+          `${import.meta.env.VITE_API_URL}/api/posts/users/${currentUser.id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -55,7 +55,9 @@ const Dashboard = () => {
               <div className="flex gap-5 items-center">
                 <div className="w-28 ">
                   <img
-                    src={`http://localhost:3000/upload/${post.thumbnail}`}
+                    src={`${import.meta.env.VITE_API_URL}/upload/${
+                      post.thumbnail
+                    }`}
                     alt={post.title}
                     className="rounded-md"
                   />

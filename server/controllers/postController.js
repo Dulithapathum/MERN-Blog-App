@@ -10,7 +10,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // ===================Create  Post ===================
 // POST:api/post/:id
-// PROTECTED
 export const createPost = (req, res, next) => {
   try {
     const { title, category, description } = req.body;
@@ -83,7 +82,6 @@ export const createPost = (req, res, next) => {
 
 // ===================Get All Post===================
 // GET:api/posts
-// UNPROTECTED
 export const getAllPosts = async (req, res, next) => {
   try {
     const posts = await Post.find().sort({ updatedAt: -1 });
@@ -95,7 +93,6 @@ export const getAllPosts = async (req, res, next) => {
 
 // ===================Get Single  Post===================
 // GET:api/posts:id
-// UNPROTECTED
 export const getPost = async (req, res, next) => {
   try {
     const posts = await Post.findById(req.params.id).sort({ updatedAt: -1 });
@@ -110,7 +107,6 @@ export const getPost = async (req, res, next) => {
 
 // ===================Get Post By Category===================
 // GET:api/posts/categories/:category
-// UNPROTECTED
 export const getCatPosts = async (req, res, next) => {
   try {
     const { category } = req.params;
@@ -125,7 +121,6 @@ export const getCatPosts = async (req, res, next) => {
 
 // ===================Get Users/Authors Post===================
 // GET:api/posts/users/:id
-// UNPROTECTED
 export const getUserPosts = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -139,7 +134,6 @@ export const getUserPosts = async (req, res, next) => {
 
 // ===================Edit  Post===================
 // PATCH:api/post/:id
-// PROTECTED
 export const editPost = async (req, res, next) => {
   try {
     let updatedPost;
@@ -213,7 +207,6 @@ export const editPost = async (req, res, next) => {
 
 // ===================Delete  Post===================
 // DELETE:api/post/:id
-// PROTECTED
 export const deletePost = async (req, res, next) => {
   try {
     const postId = req.params.id;

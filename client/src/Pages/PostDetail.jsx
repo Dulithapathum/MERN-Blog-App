@@ -19,7 +19,7 @@ const PostDetail = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:3000/api/posts/${id}`
+          `${import.meta.env.VITE_API_URL}/api/posts/${id}`
         );
         setPost(response.data);
         setError(null);
@@ -61,7 +61,7 @@ const PostDetail = () => {
           </h1>
           <div className="flex justify-center">
             <img
-              src={`http://localhost:3000/upload/${post.thumbnail}`}
+              src={`${import.meta.env.VITE_API_URL}/upload/${post.thumbnail}`}
               alt={post.title}
               className="rounded-md"
             />

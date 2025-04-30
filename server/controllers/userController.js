@@ -6,14 +6,13 @@ import fs from "fs";
 import path from "path";
 import { v4 as uuid } from "uuid";
 import { fileURLToPath } from "url";
-import { mkdir } from 'fs/promises';
+import { mkdir } from "fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ===================Register User===================
 // POST:api/users/register
-// UNPROTECTED
 export const registerUser = async (req, res, next) => {
   try {
     const { name, email, password, password2 } = req.body;
@@ -50,7 +49,6 @@ export const registerUser = async (req, res, next) => {
 
 // ===================Login User===================
 // POST:api/users/login
-// UNPROTECTED
 export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -80,7 +78,6 @@ export const loginUser = async (req, res, next) => {
 
 // ===================User Profile===================
 // POST:api/users/:id
-// PROTECTED
 export const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -96,19 +93,17 @@ export const getUser = async (req, res, next) => {
 
 // ===================Change User Avatar===================
 // POST:api/users/change-avatar
-// PROTECTED
 export const changeAvatar = async (req, res, next) => {
   try {
     if (!req.files || !req.files.avatar) {
       return next(new HttpError("Please choose an image", 422));
     }
 
-    // Ensure upload directory exists
     const uploadDir = path.join(__dirname, "..", "upload");
     try {
       await mkdir(uploadDir, { recursive: true });
     } catch (err) {
-      if (err.code !== 'EEXIST') {
+      if (err.code !== "EEXIST") {
         return next(new HttpError("Couldn't create upload directory", 500));
       }
     }
@@ -118,7 +113,6 @@ export const changeAvatar = async (req, res, next) => {
       return next(new HttpError("User Not Found", 404));
     }
 
-    // Delete old avatar if exists
     if (user.avatar) {
       const oldAvatarPath = path.join(__dirname, "..", "upload", user.avatar);
       try {
@@ -153,7 +147,6 @@ export const changeAvatar = async (req, res, next) => {
         user.avatar = newFilename;
         await user.save();
 
-        // Return full user object with avatar URL
         const userResponse = user.toObject();
         userResponse.avatarUrl = `http://localhost:3000/upload/${newFilename}`;
 
@@ -167,7 +160,6 @@ export const changeAvatar = async (req, res, next) => {
 
 // ===================Edit User Details===================
 // POST:api/users/edit-user
-// PROTECTED
 export const editUser = async (req, res, next) => {
   try {
     const { name, email, currentPassword, newPassword, confirmNewPassword } =
@@ -213,8 +205,7 @@ export const editUser = async (req, res, next) => {
 };
 
 // ===================Get Authors===================
-// POST:api/users/authors
-// UNPROTECTED
+// GET:api/users
 export const getAuthors = async (req, res, next) => {
   try {
     const author = await User.find().select("-password");

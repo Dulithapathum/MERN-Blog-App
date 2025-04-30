@@ -30,13 +30,13 @@ const UserProfile = () => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/users/${currentUser.id}`
+        `${import.meta.env.VITE_API_URL}/api/users/${currentUser.id}`
       );
       const userData = response.data;
       setName(userData.name);
       setEmail(userData.email);
       if (userData.avatar) {
-        setAvatar(`http://localhost:3000/upload/${userData.avatar}`);
+        setAvatar(`${import.meta.env.VITE_API_URL}/upload/${userData.avatar}`);
       }
     } catch (error) {
       setError(error.response?.data?.message || "Failed to fetch user data");
@@ -50,7 +50,7 @@ const UserProfile = () => {
       formData.append("avatar", e.target.files[0]);
 
       const response = await axios.post(
-        `http://localhost:3000/api/users/change-avatar`,
+        `${import.meta.env.VITE_API_URL}/api/users/change-avatar`,
         formData,
         {
           headers: {
@@ -61,7 +61,9 @@ const UserProfile = () => {
       );
 
       if (response.data.user.avatar) {
-        setAvatar(`http://localhost:3000/upload/${response.data.user.avatar}`);
+        setAvatar(
+          `${import.meta.env.VITE_API_URL}/upload/${response.data.user.avatar}`
+        );
         setSuccess("Avatar updated successfully");
       }
     } catch (error) {
@@ -74,7 +76,7 @@ const UserProfile = () => {
     setIsLoading(true);
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/users/edit-user`,
+        `${import.meta.env.VITE_API_URL}/api/users/edit-user`,
         {
           name,
           email,

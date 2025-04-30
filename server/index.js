@@ -16,14 +16,16 @@ dotenv.config();
 connectDB(); // Database connection
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const PORT = process.env.PORT;
+const CLIENT_URL = process.env.CLIENT_URL;
 
 // Middleware
-app.use(cors({
-  origin: CLIENT_URL,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: CLIENT_URL,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // File Upload  Middleware

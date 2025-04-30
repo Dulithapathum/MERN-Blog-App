@@ -18,7 +18,7 @@ const DeletePost = ({ postID, onDelete }) => {
   const deletePost = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/posts/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/posts/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -13,7 +13,7 @@ const PostAuthor = ({ authorID, createdAt }) => {
     const getAuthor = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/users/${authorID}`
+          `${import.meta.env.VITE_API_URL}/api/users/${authorID}`
         );
         setAuthor(response?.data);
       } catch (error) {
@@ -29,7 +29,7 @@ const PostAuthor = ({ authorID, createdAt }) => {
         <img
           src={
             author?.avatar
-              ? `http://localhost:3000/upload/${author.avatar}`
+              ? `${import.meta.env.VITE_API_URL}/upload/${author.avatar}`
               : "/default-avatar.png"
           }
           alt={author?.name || "Author"}

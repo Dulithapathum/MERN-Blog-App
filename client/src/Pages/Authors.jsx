@@ -10,7 +10,9 @@ const Authors = () => {
   useEffect(() => {
     const getAuthors = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/users");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/users`
+        );
         setAuthors(response?.data);
       } catch (error) {
         console.log(error);
@@ -34,7 +36,7 @@ const Authors = () => {
           >
             <div>
               <img
-                src={`http://localhost:3000/upload/${avatar}`}
+                src={`${import.meta.env.VITE_API_URL}/upload/${avatar}`}
                 alt={name}
                 className="w-16 h-16 rounded-full bg-cover"
               />

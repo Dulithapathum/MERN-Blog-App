@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 
-const DB_URL =
-  "mongodb+srv://Dulitha:DulithaP25@dulithadev.srxch.mongodb.net/?retryWrites=true&w=majority&appName=DulithaDev"; // DB URL
-
 const connectDB = () => {
   mongoose
-    .connect(DB_URL)
+    .connect(process.env.DB_URL)
     .then(() => {
       console.log("Database connected successfully");
     })

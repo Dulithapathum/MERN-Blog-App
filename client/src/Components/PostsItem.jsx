@@ -14,7 +14,7 @@ const PostsItem = ({ post }) => {
       <div className="">
         <img
           className="w-full h-56 bg-cover rounded-lg"
-          src={`http://localhost:3000/upload/${post.thumbnail}`}
+          src={`${import.meta.env.VITE_API_URL}/upload/${post.thumbnail}`}
           alt={post.title}
         />
       </div>

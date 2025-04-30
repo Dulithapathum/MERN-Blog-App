@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/users/register`,
+        `${import.meta.env.VITE_API_URL}/api/users/register`,
         userData
       );
       const newUser = response.data;
@@ -53,7 +53,7 @@ const Register = () => {
           onSubmit={registerUser}
         >
           {error && (
-            <p className="w-full p-1 text-white bg-red-600 rounded-md m-1 mt-8">
+            <p className="w-full  text-white bg-red-600 rounded-md p-2 m-2 mt-8">
               {error}
             </p>
           )}

@@ -13,7 +13,7 @@ const AuthorPosts = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/posts/users/${id}`
+          `${import.meta.env.VITE_API_URL}/api/posts/users/${id}`
         );
         setPosts(response?.data);
       } catch (error) {

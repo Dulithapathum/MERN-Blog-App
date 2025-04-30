@@ -1,3 +1,5 @@
+import { HttpError } from "../models/errorModel.js";
+
 // Middleware for handling unsupported (404) routes
 export const notFound = (req, res, next) => {
   const error = new HttpError(`Not Found - ${req.originalUrl}`, 404);

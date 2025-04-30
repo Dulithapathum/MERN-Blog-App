@@ -13,7 +13,7 @@ const CategoryPosts = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/posts/categories/${category}`
+          `${import.meta.env.VITE_API_URL}/api/posts/categories/${category}`
         );
         setPosts(response?.data);
       } catch (error) {

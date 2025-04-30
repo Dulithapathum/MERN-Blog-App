@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/users/login`,
+        `${import.meta.env.VITE_API_URL}/api/users/login`,
         userData
       );
       const User = response.data;
@@ -41,7 +41,7 @@ const Login = () => {
           onSubmit={userLogin}
         >
           {error && (
-            <p className="w-full  p-1 text-white  bg-red-600 rounded-md m-1 mt-8">
+            <p className="w-full  text-white bg-red-600 rounded-md p-2 m-2 mt-8">
               {error}
             </p>
           )}

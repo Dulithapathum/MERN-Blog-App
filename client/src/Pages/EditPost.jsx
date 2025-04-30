@@ -60,7 +60,7 @@ const EditPost = () => {
     const getPost = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/posts/${id}`,
+          `${import.meta.env.VITE_API_URL}/api/posts/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -88,12 +88,16 @@ const EditPost = () => {
       formData.append("description", description);
       formData.append("thumbnail", thumbnail);
 
-      await axios.patch(`http://localhost:3000/api/posts/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/posts/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       navigate("/");
     } catch (err) {
       const errorMessage = err.response?.data?.message || "An error occurred.";
@@ -111,7 +115,7 @@ const EditPost = () => {
       <div>
         <h2 className="text-center mb-9 text-4xl font-bold">Edit Post</h2>
         {error && (
-          <p className="w-full  p-2 text-white  bg-red-500 rounded-md m-1 mt-8">
+          <p className="w-full  text-white bg-red-600 rounded-md p-2 m-2 mt-8">
             {error}
           </p>
         )}
